@@ -14,8 +14,10 @@ public class Tile {
   /** Who has contol of the current piece. P1=false, P2=true. */
   private boolean owner;
 
+  /** The change in x expected with direction 'index' */
   private static final int[] DELTASX = new int[]{0,1,1,1,0,-1,-1,-1};
 
+  /** The change in y expected with direction 'index' */
   private static final int[] DELTASY = new int[]{1,1,0,-1,-1,-1,0,1};
 
   // +--------------+------------------------------------------------
