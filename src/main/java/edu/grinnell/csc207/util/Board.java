@@ -12,7 +12,7 @@ public class Board {
   private Tile[] pieces;
 
   /** The board we play (place pieces) on. */
-  private MatrixV0 gameBoard;
+  private MatrixV0<Tile> gameBoard;
 
   // +--------------+-------------------------------------------------
   // | Constructors |
@@ -20,14 +20,13 @@ public class Board {
 
   /**
    * Construct the game board.
-   * 
-   * @post void
-   *  Produces a game board to play on. 
    */
-  public void makeBoard() {
-    this.count = 0;
+  public Board() {
+    this.count = 1;
     this.pieces = new Tile[49];
-    this.gameBoard = new MatrixV0<>(7 , 7);
+    this.tileGroup();
+    this.gameBoard = new MatrixV0<Tile>(7 , 7);
+    this.gameBoard.set(3, 3, this.pieces[0]); // first game piece
   } // makeBoard()
 
   // +---------+------------------------------------------------------
@@ -35,13 +34,20 @@ public class Board {
   // +---------+
 
   /**
-   * Generate all possible tiles.
-   * 
-   * @pre 
-   * 
-   * @post void
-   *  Assigns all possible tile pieces to this.pieces. Allows for players to pull from this group to use a piece. 
+   * Generate all possible tiles. Allows for players to pull from this group to use a piece. 
    */
-  public void 
+  private void tileGroup() {
+    int tile = 1; // keep track of the tile we are on
+    this.pieces[0] = new Tile(-1, new int[0]);
+
+    for(int i = 0; i < 5; i++) {
+      for(int k = i + 1; k < 7; k++) {
+        for(int j = Math.max(i + 3, k + 1); j < Math.min(i + 7, 8); j++) {
+          this.pieces[tile++] = new Tile(0, new int[] {i, k, j});
+        } // for
+      } // for
+    } // for
+  } // tileGroup()
+
 
 } // class Board
