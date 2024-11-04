@@ -67,6 +67,7 @@ public class Tile {
         this.outerDir[i] = (this.outerDir[i] + amount) % 8;
       } // for [i]
     } // if
+    this.owner = !(this.owner);
   } // rotate(int)
 
 } // Tile
