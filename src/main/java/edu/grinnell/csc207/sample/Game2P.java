@@ -92,7 +92,7 @@ public class Game2P {
      *  What the board looks like at the end of the game.
     */
     static void whoWon(PrintWriter pen, MatrixV0<Tile> endBoard) {
-
+      //stub
     } // whoWon(PrintWriter, MatrixV0<Tile>)
 
     /** Create a fresh board.
@@ -102,7 +102,7 @@ public class Game2P {
      */
     static Board newGame(Random r) {
       Board newBoard = new Board(r);
-
+      //stub
       return newBoard;
     } // newGame(Random)
   // +------+--------------------------------------------------------
