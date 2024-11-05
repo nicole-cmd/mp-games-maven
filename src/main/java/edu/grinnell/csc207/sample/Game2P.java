@@ -57,8 +57,8 @@ public class Game2P {
                   3 spaces away from it. Players must follow this placement method on each turn. 
 
                   2. Flip
-                  Each player may have a chance to flip their opponent's tiles on their turn. Players must
-                  flip a tile that is adjacent to the one they just placed and must flip tiles one at a
+                  Each player may have a chance to flip their opponent's tiles on their turn. Players may
+                  flip one tile that is adjacent to the one they just placed and must flip tiles one at a
                   time. There are additional guidelines to flipping tiles. You cannot flip an opponent's
                   tile if:
                   
