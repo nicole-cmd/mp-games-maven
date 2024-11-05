@@ -34,7 +34,7 @@ public class Tile {
   // | Methods |
   // +---------+
 
-  public boolean canFilp(Tile other, int thisX, int thisY, int otherX, int otherY) {
+  public boolean canFlip(Tile other, int thisX, int thisY, int otherX, int otherY) {
     if (this.owner == other.owner) {
       return false;
     } else if (this.baseDir == -1) {
@@ -62,12 +62,15 @@ public class Tile {
 
   public void rotate(int amount) {
     if (this.baseDir != -1) {
-      this.baseDir = (this.baseDir + amount) % 8;
       for (int i = 0; i < this.outerDir.length; i++) {
-        this.outerDir[i] = (this.outerDir[i] + amount) % 8;
+        this.outerDir[i] = (this.outerDir[i] + amount - this.baseDir + 8) % 8;
       } // for [i]
+      this.baseDir = amount ;
     } // if
-    this.owner = !(this.owner);
   } // rotate(int)
+
+  public void flip() {
+    this.owner = !(this.owner);
+  } // flip()
 
 } // Tile
