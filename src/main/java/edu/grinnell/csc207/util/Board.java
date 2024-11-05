@@ -84,13 +84,8 @@ public class Board {
   } // flip
 
   public boolean canFlipSomething(int x, int y) {
-    for (int i = 0; i < this.pieces.length; i++) {
-      if(this.gameBoard.get(x,y).canFlip(this.gameBoard.get(i % dim(),i / dim()), x, y, i % dim(), i / dim())) {
-        return true;
-      }
-    } // for [i]
-    return false;
-  }
+    return (allCanFlip(x, y).length > 0);
+  } // canFlipSomething(int, int)
 
   public int[] allCanFlip(int x, int y) {
     int[] output = new int[0];
@@ -101,15 +96,15 @@ public class Board {
       }
     } // for [i]
     return output;
-  }
+  } // allCanFlip(int, int)
 
   public boolean nextPiece() {
     this.count++;
     return (count > this.pieces.length);
-  }
+  } // nextPiece()
 
   private static int dim() {
     return DIM;
-  }
+  } // dim()
 
 } // class Board
