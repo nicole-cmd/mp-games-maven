@@ -35,7 +35,9 @@ public class Tile {
   // +---------+
 
   public boolean canFlip(Tile other, int thisX, int thisY, int otherX, int otherY) {
-    if (this.owner == other.owner) {
+    if (other == null){
+      return false;  
+    }else if (this.owner == other.owner) {
       return false;
     } else if (this.baseDir == -1) {
       return false;
