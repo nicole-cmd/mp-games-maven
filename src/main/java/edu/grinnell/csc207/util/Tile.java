@@ -71,6 +71,10 @@ public class Tile {
     } // if
   } // rotate(int)
 
+  public boolean getOwner() {
+    return this.owner;
+  } // getOwner()
+
   public void flip() {
     this.owner = !(this.owner);
   } // flip()
