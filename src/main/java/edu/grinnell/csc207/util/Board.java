@@ -3,6 +3,13 @@ package edu.grinnell.csc207.util;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * An object that represents a game of Sayu.
+ * Includes methods to progress the game.
+ *
+ * @author Cade Johnston
+ * @author Nicole Gorrell
+ */
 public class Board {
   // +--------+-------------------------------------------------------
   // | Fields |
@@ -26,6 +33,9 @@ public class Board {
 
   /**
    * Construct the game board.
+   * 
+   * @param rand
+   *   A Random object with some seed to use for randomization.
    */
   public Board(Random rand) {
     this.count = 1;
@@ -66,27 +76,63 @@ public class Board {
   } // tileGroup()
 
   /**
-   * Show the users the next piece
+   * Show the users the next piece.
    */
   public void preview() {
     Tile toShow = this.pieces[this.count];
     // Don't know IO.
   }
 
+  /**
+   * Set the current tile at (x,y) and set its rotation to r.
+   * @param x
+   *   The x coordinate to set the tile at.
+   * @param y
+   *   The y coordinate to set the tile at.
+   * @param r
+   *   The rotation to set the tile to.
+   */
   public void set(int x, int y, int r) {
     this.pieces[count].rotate(r);
     this.gameBoard.set(x, y, this.pieces[this.count]);
   } // set
 
+  /**
+   * Flip the tile at (x,y) and set its rotation to r
+   * @param x
+   *   The x coordinate of the tile to set.
+   * @param y
+   *   The y coordinate of the tile to set.
+   * @param r
+   *   The rotation to set the tile to.
+   */
   public void flip(int x, int y, int r) {
     this.gameBoard.get(x,y).rotate(r);
     this.gameBoard.get(x,y).flip();
   } // flip
 
+  /**
+   * Returns if any tiles can be flipped by the tile at (x,y).
+   * @param x
+   *   The x coordinate of the tile to check.
+   * @param y
+   *   The y coordinate of the tile to check.
+   * @return
+   *   If any tiles can be flipped by the tile at (x,y).
+   */
   public boolean canFlipSomething(int x, int y) {
     return (allCanFlip(x, y).length > 0);
   } // canFlipSomething(int, int)
 
+  /**
+   * Returns an array of all the tiles the tile at (x,y) can flip.
+   * @param x
+   *   The x coordinate of the tile to check.
+   * @param y
+   *   The y coordinate of the tile to check.
+   * @return
+   *   All of the tiles that can be flipped by the tile at (x,y).
+   */
   public int[] allCanFlip(int x, int y) {
     int[] output = new int[0];
     for (int i = 0; i < this.pieces.length; i++) {
@@ -98,10 +144,30 @@ public class Board {
     return output;
   } // allCanFlip(int, int)
 
+  /**
+   * Advance to the next piece.
+   * @return
+   *   If the game is over.
+   */
   public boolean nextPiece() {
     this.count++;
     return (count > this.pieces.length);
   } // nextPiece()
+
+  /**
+   * Return the winner of the game.
+   * @return
+   *   The winner of the game. False=P1, True=P2.
+   */
+  public boolean getWinner() {
+    int points = 0;
+    for (int i = 0; i < dim() * dim(); i++) {
+      if (this.gameBoard.get(i % dim(),i / dim()).getOwner()) {
+        points++;
+      } // if
+    } // for [i]
+    return (points > (dim() * dim() / 2));
+  } // getWinner()
 
   private static int dim() {
     return DIM;
