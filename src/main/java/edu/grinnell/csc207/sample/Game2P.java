@@ -6,13 +6,16 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.lang.Integer;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
- * Runs a game of Sayu with additional support.
+ * Runs a game of Sayu with additional features to facilitate gamplay.
  * 
  * @author Cade Johnston
  * @author Nicole Gorrell
@@ -95,16 +98,31 @@ public class Game2P {
       //stub
     } // whoWon(PrintWriter, MatrixV0<Tile>)
 
-    /** Create a fresh board.
-     * 
-     * @param args
-     * @throws IOException
-     */
-    static Board newGame(Random r) {
-      Board newBoard = new Board(r);
-      //stub
-      return newBoard;
-    } // newGame(Random)
+    /** Opens a new window through which one plays Sayu. */
+    private static void newWindow() {
+      Random rand = new Random();
+      int gameNum = rand.nextInt();
+      JFrame window = new JFrame("SAYU Game: " + gameNum);
+
+      // closing the window terminates the program
+      window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+      // make a new board to play on and add it to the game window
+      Board board = new Board(new Random());
+      window.add(board);
+
+      // mouse movement facilitates gameplay by determining where tiles go
+      window.addMouseListener(board);
+
+      // prevents user from resizing the window and fits the window around the jpanel
+      window.setResizable(false);
+      window.pack();
+
+      // open window in the center of the screen and display it
+      window.setLocationRelativeTo(null);
+      window.setVisible(true);
+    } // newWindow()
+
   // +------+--------------------------------------------------------
   // | Main |
   // +------+
@@ -119,18 +137,20 @@ public class Game2P {
     PrintWriter pen = new PrintWriter(System.out, true);
     BufferedReader eyes = new BufferedReader(new InputStreamReader(System.in));
 
-    Random value = new Random();
-
-    // starting the game
-
-    // prologue - redundant 
+    // game prologue - redundant 
     intro(pen);
     pen.flush();
     showRules(pen);
     pen.flush();
 
-    // make a new board to play on
-    Board game = newGame(value);
+    // notes about invokeLater() on Lines 31-2 from
+    // https://github.com/learncodebygaming/java_2d_game/blob/master/App.java
+    // when main runs, this will initiate gameplay in a new window
+    SwingUtilities.invokeLater(new Runnable() {
+      public void run() {
+        newWindow();
+      }
+    });
 
     // beginning gameplay
 
