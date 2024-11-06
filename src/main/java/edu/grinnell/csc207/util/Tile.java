@@ -40,9 +40,9 @@ public class Tile {
    *   The directions of the color arrows of the tile.
    */
    public Tile(int base, int[] outer) {
-    baseDir = base;
-    outerDir = outer;
-    owner = false;
+    this.baseDir = base;
+    this.outerDir = outer;
+    this.owner = false;
    } // Tile(int,int[])
 
   // +---------+-----------------------------------------------------
@@ -52,19 +52,19 @@ public class Tile {
   public boolean canFlip(Tile other, int thisX, int thisY, int otherX, int otherY) {
     if (other == null){
       return false;  
-    }else if (this.owner == other.owner) {
+    }else if (this.owner == other.getOwner()) {
       return false;
     } else if (this.baseDir == -1) {
       return false;
-    } else if (this.baseDir == other.baseDir) {
+    } else if (this.baseDir == other.getDir()) {
       return false;
     } // if / else if / else if
     for (int k = 0; k < 8; k++) {
       if((thisX - otherX == DELTASX[k]) && (thisY - otherY == DELTASY[k])) {
-        for (int i = 0; i < this.outerDir.length; i++) {
-          if (this.outerDir[i] == k) {
-            for (int j = 0; j < other.outerDir.length; j++) {
-              if ((other.outerDir[j] + 4) % 8 == k) {
+        for (int i = 0; i < this.getOuterDirs().length; i++) {
+          if (this.getOuterDirs()[i] == k) {
+            for (int j = 0; j < other.getOuterDirs().length; j++) {
+              if ((other.getOuterDirs()[j] + 4) % 8 == k) {
                 return false;
               } // if
             } // for [j]
