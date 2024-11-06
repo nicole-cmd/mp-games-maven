@@ -47,7 +47,7 @@ public class Board {
     this.pieces[0] = new Tile(-1, new int[0]);
     for (int i = 0; i < 5; i++) {
       for (int k = i + 1; k < Math.min(i + 6, 7); k++) {
-        for (int j = Math.max(i + 3, k + 1); j < Math.min(i + 7, 8); j++) {
+        for (int j = Math.max(i + 3, k + 1); j < Math.min(k + 6, 8); j++) {
           this.pieces[tile++] = new Tile(0, new int[]{i, k, j});
         } // for
       } // for
@@ -61,7 +61,7 @@ public class Board {
       this.pieces[l] = temp;
       if((l % 2) == 1) {
         this.pieces[l].flip();
-      }
+      } // if
     } // for [l]
   } // tileGroup()
 
