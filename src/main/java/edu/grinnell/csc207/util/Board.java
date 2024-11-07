@@ -55,6 +55,7 @@ public class Board {
   private void tileGroup(Random seed) {
     int tile = 1; // keep track of the tile we are on
     this.pieces[0] = new Tile(-1, new int[0]);
+    this.pieces[0].flip();
     for (int i = 0; i < 5; i++) {
       for (int k = i + 1; k < Math.min(i + 6, 7); k++) {
         for (int j = Math.max(i + 3, k + 1); j < Math.min(k + 6, 8); j++) {
