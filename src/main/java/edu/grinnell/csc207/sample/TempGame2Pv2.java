@@ -77,10 +77,7 @@ public class TempGame2Pv2 {
       }
 
       public void mousePressed(MouseEvent e) {
-        System.out.println("Event occured in button: " + ((JFrame)e.getSource()).getName());
-        if(e.getSource().getClass() == JButton.class){
-          System.out.println("Hi");
-        }
+        
       }
     });
   }
