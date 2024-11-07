@@ -1,19 +1,13 @@
 package edu.grinnell.csc207.sample;
 
-import edu.grinnell.csc207.util.*;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
-import java.lang.Integer;
 
 import javax.swing.*;
 import java.awt.*;
 
+import edu.grinnell.csc207.util.*;
 /**
  * Runs a game of Sayu with additional features to facilitate gamplay.
  * 
@@ -25,7 +19,11 @@ public class Game2P {
   // | Constants |
   // +-----------+
 
-
+  /** 
+   * Setting constant width and height of our game window. 
+   */
+  static final int WINDOW_W = 20;
+  static final int WINDOW_H = 15;
 
   // +----------------+----------------------------------------------
   // | Helper methods |
@@ -42,16 +40,7 @@ public class Game2P {
                   tiles and flip their opponent's tiles. A player's goal is to have the most tiles with
                   their color on the board by the game's end. Once the tiles run out, the player with the
                   most tiles on the board wins.
-                  """);
-    } // intro(PrintWriter)
 
-    /** Display rules at the beginning of a game and if player wishes to see them again.
-     * 
-     * @param pen
-     *  PrintWriter used to print the rules.
-    */
-    public static void showRules(PrintWriter pen) {
-      pen.println("""
                   Here are the rules:
                   
                   1. Place 
@@ -79,27 +68,12 @@ public class Game2P {
 
                   Here are moves you can make to proceed:
 
-                  + -s direction tile -- determine where you will set your piece in relation to a specified tile
-                  + -f direction -- determine which adjacent opponent piece you want to flip
-                  + -r -- rotate?
-                  + -p -- preview which piece will be set on the board next
-                  + -h -- call for help to reference the rules and list of commands
+                  
                   """);
-    } // showRules(PrintWriter)
-
-    /** Determine the winner of the game. 
-     * 
-     * @param pen
-     *  PrintWriter that prints who the winner is.
-     * @param endBoard
-     *  What the board looks like at the end of the game.
-    */
-    static void whoWon(PrintWriter pen, MatrixV0<Tile> endBoard) {
-      //stub
-    } // whoWon(PrintWriter, MatrixV0<Tile>)
+    } // intro(PrintWriter)
 
     /** Opens a new window through which one plays Sayu. */
-    private static void newWindow() {
+    private static void newGameWindow() {
       Random rand = new Random();
       int gameNum = rand.nextInt();
       JFrame window = new JFrame("SAYU Game: " + gameNum);
@@ -107,21 +81,49 @@ public class Game2P {
       // closing the window terminates the program
       window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-      // make a new board to play on and add it to the game window
-      Board board = new Board(new Random());
-      window.add(board);
-
-      // mouse movement facilitates gameplay by determining where tiles go
-      window.addMouseListener(board);
-
-      // prevents user from resizing the window and fits the window around the jpanel
+      // prevents user from resizing the window and fits the window around the JPanel
+      window.setSize(WINDOW_W,WINDOW_H);
       window.setResizable(false);
       window.pack();
+
+      // make a new board to play on and add it to the game window
+      Board board = new Board(new Random());
+      GamePanel gamePanel = new GamePanel(board);
+      window.add(gamePanel);
+
+      // // mouse movement facilitates gameplay by determining where tiles go -- must make mouse listener object
+      // MouseListener mouse = new MouseListener() {
+        
+      // };
+      // window.addMouseListener(mouse);
 
       // open window in the center of the screen and display it
       window.setLocationRelativeTo(null);
       window.setVisible(true);
     } // newWindow()
+
+    /** Generate the next game piece based off who is P1/P2.
+     *  Assume: P1 -> blue, P2 -> red
+     * 
+     * @param b
+     *  The board we pass in to draw.
+     * @param graphic
+     */
+    public void drawTile(Board board, Graphics g) {
+      Tile next = board.preview();
+
+      g.drawPolygon(null);
+
+
+      if (next.getOwner() == false) {
+        g.setColor(Color.blue);
+      } else {
+        g.setColor(Color.red);
+      } // if/else
+
+
+
+    } // drawPiece()
 
   // +------+--------------------------------------------------------
   // | Main |
@@ -135,12 +137,9 @@ public class Game2P {
    */
   public static void main(String[] args) throws IOException {
     PrintWriter pen = new PrintWriter(System.out, true);
-    BufferedReader eyes = new BufferedReader(new InputStreamReader(System.in));
 
-    // game prologue - redundant 
+    // game prologue
     intro(pen);
-    pen.flush();
-    showRules(pen);
     pen.flush();
 
     // notes about invokeLater() on Lines 31-2 from
@@ -148,11 +147,20 @@ public class Game2P {
     // when main runs, this will initiate gameplay in a new window
     SwingUtilities.invokeLater(new Runnable() {
       public void run() {
-        newWindow();
+        newGameWindow();
       }
     });
 
     // beginning gameplay
+    // boolean player = false;
 
+    // IOUtils.readCommand(pen, eyes, "Are you P1 or P2?: ", args);
+
+    // if (args[0].contains("P1")) {
+    //   player = false;
+    // } else {
+    //   player = true;
+    // } // if/else
+   
   } // main(String[])
 } // class Game2P

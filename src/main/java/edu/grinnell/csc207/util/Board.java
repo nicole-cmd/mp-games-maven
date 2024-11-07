@@ -1,5 +1,10 @@
 package edu.grinnell.csc207.util;
 
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.*;
+import javax.swing.*;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -10,7 +15,7 @@ import java.util.Random;
  * @author Cade Johnston
  * @author Nicole Gorrell
  */
-public class Board {
+public class Board extends JPanel implements  MouseListener {
   // +--------+-------------------------------------------------------
   // | Fields |
   // +--------+
@@ -18,7 +23,7 @@ public class Board {
   /** The amount of tiles on the board. */
   private int count;
 
-  /** A piece that gets placed onto the board. */
+  /** Remaining pieces to place on the board. */
   private Tile[] pieces;
 
   /** The board we play (place pieces) on. */
@@ -78,10 +83,9 @@ public class Board {
   /**
    * Show the users the next piece.
    */
-  public void preview() {
-    Tile toShow = this.pieces[this.count];
-    // Don't know IO.
-  }
+  public Tile preview() {
+    return this.pieces[this.count++];
+  } // preview()
 
   /**
    * Set the current tile at (x,y) and set its rotation to r.
@@ -193,5 +197,40 @@ public class Board {
   private static int dim() {
     return DIM;
   } // dim()
+
+  /** Gets invoked when an action occurs, or when buttons are clicked
+   * 
+   * @param e
+   *  The event that happened (which button was pressed).
+   */
+  // @Override
+  // public void actionPerformed(ActiveEvent e) {
+
+  // } // actionPerformed(ActionEvent)
+
+  @Override
+  public void mouseClicked(MouseEvent e) {
+    //stub
+  } // mouseClicked(MouseEvent)
+
+  @Override
+  public void mouseEntered(MouseEvent e) {
+    //stub
+  } // mouseEntered(MouseEvent)
+
+  @Override
+  public void mouseExited(MouseEvent e) {
+    //stub
+  } // mouseExited(MouseEvent)
+
+  @Override
+  public void mousePressed(MouseEvent e) {
+    //stub
+  } // mousePressed(MouseEvent)
+
+  @Override
+  public void mouseReleased(MouseEvent e) {
+    //stub
+  } // mouseReleased(MouseEvent)
 
 } // class Board
