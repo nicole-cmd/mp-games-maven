@@ -18,6 +18,7 @@ Acknowledgements:
 - Formula for height/width of an octogon (https://www.quora.com/How-do-you-calculate-the-length-of-the-sides-of-an-octagon-with-height-and-width-is-30-inches)
 - MP3 mp-blocks-maven Project. Written by Harrison Zhu, Tiffany Tang, and Nicole Gorrell. Referenced Surrounded.java and Boxed.java, specifically (https://github.com/tangyixu/mp-blocks-maven.git) 
 - "Switch Statements in Java" (https://www.geeksforgeeks.org/switch-statement-in-java/)
+- https://learncodebygaming.com/blog/how-to-make-a-video-game-in-java-2d-basics 
 
 Source:
 
