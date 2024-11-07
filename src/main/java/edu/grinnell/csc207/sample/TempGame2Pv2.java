@@ -37,7 +37,13 @@ public class TempGame2Pv2 {
                 System.out.println("Event occured in button: " + ((JButton)e.getSource()).getName());
               } // actionPerformed(ActionEvent)
             }); // addActionListener(ActionListener)
-          } // if
+          } else {
+            fieldGrid[i].addActionListener(new ActionListener() {
+              public void actionPerformed(ActionEvent e){
+                System.out.println("Event occured in button: " + ((JButton)e.getSource()).getName());
+              } // actionPerformed(ActionEvent)
+            }); // addActionListener(ActionListener)
+          } // if / else
           f.add(fieldGrid[i]);
           fieldGrid[i].setBounds(25 + (i % 7) * 35, 80 + (i / 7) * 35, 35, 35);
         } // for [i]
