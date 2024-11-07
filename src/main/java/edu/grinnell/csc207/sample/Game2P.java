@@ -22,8 +22,8 @@ public class Game2P {
   /** 
    * Setting constant width and height of our game window. 
    */
-  static final int WINDOW_W = 20;
-  static final int WINDOW_H = 15;
+  static final int WINDOW_W = 600;
+  static final int WINDOW_H = 400;
 
   // +----------------+----------------------------------------------
   // | Helper methods |
@@ -84,6 +84,7 @@ public class Game2P {
       // prevents user from resizing the window and fits the window around the JPanel
       window.setSize(WINDOW_W,WINDOW_H);
       window.setResizable(false);
+      window.setBackground(Color.orange);
       window.pack();
 
       // make a new board to play on and add it to the game window
