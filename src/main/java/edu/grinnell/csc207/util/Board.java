@@ -1,10 +1,5 @@
 package edu.grinnell.csc207.util;
 
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.*;
-import javax.swing.*;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -15,7 +10,7 @@ import java.util.Random;
  * @author Cade Johnston
  * @author Nicole Gorrell
  */
-public class Board extends JPanel implements  MouseListener {
+public class Board {
   // +--------+-------------------------------------------------------
   // | Fields |
   // +--------+
@@ -197,40 +192,4 @@ public class Board extends JPanel implements  MouseListener {
   private static int dim() {
     return DIM;
   } // dim()
-
-  /** Gets invoked when an action occurs, or when buttons are clicked
-   * 
-   * @param e
-   *  The event that happened (which button was pressed).
-   */
-  // @Override
-  // public void actionPerformed(ActiveEvent e) {
-
-  // } // actionPerformed(ActionEvent)
-
-  @Override
-  public void mouseClicked(MouseEvent e) {
-    //stub
-  } // mouseClicked(MouseEvent)
-
-  @Override
-  public void mouseEntered(MouseEvent e) {
-    //stub
-  } // mouseEntered(MouseEvent)
-
-  @Override
-  public void mouseExited(MouseEvent e) {
-    //stub
-  } // mouseExited(MouseEvent)
-
-  @Override
-  public void mousePressed(MouseEvent e) {
-    //stub
-  } // mousePressed(MouseEvent)
-
-  @Override
-  public void mouseReleased(MouseEvent e) {
-    //stub
-  } // mouseReleased(MouseEvent)
-
 } // class Board
