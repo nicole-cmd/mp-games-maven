@@ -14,10 +14,8 @@ Instructions:
 
 Acknowledgements:
 
-- "The Joy of Coding" YouTube video by Learn Code By Gaming (https://www.youtube.com/watch?v=IyBsWymfqms&t=291s&ab_channel=LearnCodeByGaming)
-- Associated project from above video, thejoyofcoding (https://github.com/learncodebygaming/thejoyofcoding)
-- "How to make a Video Game in Java" YouTube video by Learn Code By Gaming (https://www.youtube.com/watch?v=PJLLDpaLjds&t=44s&ab_channel=LearnCodeByGaming)
-- Associated project from above video, java_2d_game (https://github.com/learncodebygaming/java_2d_game)
+- Math Java documentation (https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html)
+- Formula for height/width of an octogon (https://www.quora.com/How-do-you-calculate-the-length-of-the-sides-of-an-octagon-with-height-and-width-is-30-inches)
 
 Source:
 
