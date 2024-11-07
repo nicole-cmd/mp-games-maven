@@ -8,14 +8,14 @@ import java.awt.Color;
 
 public class TempGame2Pv2 {
   public static void main(String[] args) {
-    JFrame f=new JFrame("Sayu");
-    JTextField x=new JTextField();
+    JFrame f = new JFrame("Sayu");
+    JTextField x = new JTextField();
     x.setBounds(50,100,40,20);
-    JButton b=new JButton("Create with above seed");
+    JButton b = new JButton("Create with above seed");
     JButton[] fieldGrid = new JButton[51];
-    b.setBounds(50,200,95,30);
-    b.addActionListener(new ActionListener(){
-      public void actionPerformed(ActionEvent e){
+    b.setBounds(50, 200, 95, 30);
+    b.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
         Board game;
         if(x.getText().equals("")){
           game = new Board(new Random());
@@ -24,7 +24,7 @@ public class TempGame2Pv2 {
         } // if / else
         b.setVisible(false);
         x.setVisible(false);
-        for(int i = 0; i < 51; i++){
+        for (int i = 0; i < 51; i++) {
           fieldGrid[i] = new JButton();
           fieldGrid[i].setName(i+"");
           fieldGrid[i].setRolloverEnabled(false);
@@ -32,14 +32,14 @@ public class TempGame2Pv2 {
             fieldGrid[i].setBackground(new Color(0, 0, 0, 0));
             fieldGrid[i].setBorder(null);
             fieldGrid[i].addActionListener(new ActionListener() {
-              public void actionPerformed(ActionEvent e){
+              public void actionPerformed(ActionEvent e) {
                 ((JButton)e.getSource()).setVisible(false);
                 System.out.println("Event occured in button: " + ((JButton)e.getSource()).getName());
               } // actionPerformed(ActionEvent)
             }); // addActionListener(ActionListener)
           } else {
             fieldGrid[i].addActionListener(new ActionListener() {
-              public void actionPerformed(ActionEvent e){
+              public void actionPerformed(ActionEvent e) {
                 System.out.println("Event occured in button: " + ((JButton)e.getSource()).getName());
               } // actionPerformed(ActionEvent)
             }); // addActionListener(ActionListener)
@@ -55,7 +55,7 @@ public class TempGame2Pv2 {
     }); // addActionListener(ActionListener)
     f.add(b);
     f.add(x);
-    f.setSize(500,435);
+    f.setSize(500, 435);
     f.setLayout(null);
     f.setVisible(true);
     f.addMouseListener(new MouseListener() {
