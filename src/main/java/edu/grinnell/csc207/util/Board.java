@@ -145,6 +145,27 @@ public class Board {
   } // allCanFlip(int, int)
 
   /**
+   * Returns an array of all the locations a new tile can be placed at.
+   * @return
+   *   All of the locations that a tile can be placed at.
+   */
+  public int[] allCanPlay() {
+    int[] deltas = new int[]{-7,-1,1,7};
+    int[] output = new int[0];
+    for (int i = 0; i < this.pieces.length; i++) {
+      if (this.pieces[i] == null) {
+        for (int j = 0; j < deltas.length; j++) {
+          if((i + deltas[j] >= 0) && (i + deltas[j] < this.pieces.length) && (this.pieces[i + deltas[j]] != null)) {
+            output = Arrays.copyOf(output, output.length + 1);
+            output[output.length - 1] = i;
+          } // if
+        } // for [j]
+      } // if
+    } // for [i]
+    return output;
+  } // allCanPlay()
+
+  /**
    * Advance to the next piece.
    * @return
    *   If the game is over.
@@ -161,7 +182,7 @@ public class Board {
    */
   public boolean getWinner() {
     int points = 0;
-    for (int i = 0; i < dim() * dim(); i++) {
+    for (int i = 0; i < this.pieces.length; i++) {
       if (this.gameBoard.get(i % dim(),i / dim()).getOwner()) {
         points++;
       } // if
