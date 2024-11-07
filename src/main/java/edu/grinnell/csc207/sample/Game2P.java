@@ -3,11 +3,8 @@ package edu.grinnell.csc207.sample;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
-
-import javax.swing.*;
-import java.awt.*;
-
 import edu.grinnell.csc207.util.*;
+
 /**
  * Runs a game of Sayu with additional features to facilitate gamplay.
  * 
@@ -19,11 +16,6 @@ public class Game2P {
   // | Constants |
   // +-----------+
 
-  /** 
-   * Setting constant width and height of our game window. 
-   */
-  static final int WINDOW_W = 600;
-  static final int WINDOW_H = 400;
 
   // +----------------+----------------------------------------------
   // | Helper methods |
@@ -72,60 +64,7 @@ public class Game2P {
                   """);
     } // intro(PrintWriter)
 
-    /** Opens a new window through which one plays Sayu. */
-    private static void newGameWindow() {
-      Random rand = new Random();
-      int gameNum = rand.nextInt();
-      JFrame window = new JFrame("SAYU Game: " + gameNum);
-
-      // closing the window terminates the program
-      window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-      // prevents user from resizing the window and fits the window around the JPanel
-      window.setSize(WINDOW_W,WINDOW_H);
-      window.setResizable(false);
-      window.setBackground(Color.orange);
-      window.pack();
-
-      // make a new board to play on and add it to the game window
-      Board board = new Board(new Random());
-      GamePanel gamePanel = new GamePanel(board);
-      window.add(gamePanel);
-
-      // // mouse movement facilitates gameplay by determining where tiles go -- must make mouse listener object
-      // MouseListener mouse = new MouseListener() {
-        
-      // };
-      // window.addMouseListener(mouse);
-
-      // open window in the center of the screen and display it
-      window.setLocationRelativeTo(null);
-      window.setVisible(true);
-    } // newWindow()
-
-    /** Generate the next game piece based off who is P1/P2.
-     *  Assume: P1 -> blue, P2 -> red
-     * 
-     * @param b
-     *  The board we pass in to draw.
-     * @param graphic
-     */
-    public void drawTile(Board board, Graphics g) {
-      Tile next = board.preview();
-
-      g.drawPolygon(null);
-
-
-      if (next.getOwner() == false) {
-        g.setColor(Color.blue);
-      } else {
-        g.setColor(Color.red);
-      } // if/else
-
-
-
-    } // drawPiece()
-
+  
   // +------+--------------------------------------------------------
   // | Main |
   // +------+
@@ -143,25 +82,9 @@ public class Game2P {
     intro(pen);
     pen.flush();
 
-    // notes about invokeLater() on Lines 31-2 from
-    // https://github.com/learncodebygaming/java_2d_game/blob/master/App.java
-    // when main runs, this will initiate gameplay in a new window
-    SwingUtilities.invokeLater(new Runnable() {
-      public void run() {
-        newGameWindow();
-      }
-    });
 
     // beginning gameplay
-    // boolean player = false;
-
-    // IOUtils.readCommand(pen, eyes, "Are you P1 or P2?: ", args);
-
-    // if (args[0].contains("P1")) {
-    //   player = false;
-    // } else {
-    //   player = true;
-    // } // if/else
+    
    
   } // main(String[])
 } // class Game2P
