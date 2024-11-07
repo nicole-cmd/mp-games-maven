@@ -3,7 +3,8 @@ import java.lang.Math;
 
 /**
  * Draws the next tile to be played in the shape of an octagon with
- * surrounding arrows, the positions of which vary.
+ * surrounding arrows, the positions of which vary. Made using
+ * AsciiBlocks.
  * 
  * @author Nicole Gorrell
  * @author Cade Johnston
