@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * An implementation of two-dimensional matrices.
  *
- * @author Your Name Here
+ * @author Cade Johnston
  * @author Samuel A. Rebelsky
  *
  * @param <T>
