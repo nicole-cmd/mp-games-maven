@@ -36,17 +36,8 @@ public class Board extends JPanel {
   /** The dimensions of the board. */
   private static final int DIM = 7;
 
-  /** The color for player 1. */
-  private static final Color P1C = new Color(255, 0, 0);
-
-  /** The color for player 2. */
-  private static final Color P2C = new Color(0, 0, 255);
-
   /** The 'current' piece. */
   private int currentP;
-
-  /** The image output of this class. */
-  private BufferedImage canvas = new BufferedImage(500, 435, BufferedImage.TYPE_INT_ARGB);
 
   // +--------------+-------------------------------------------------
   // | Constructors |
@@ -72,6 +63,10 @@ public class Board extends JPanel {
   // +---------+------------------------------------------------------
   // | Methods |
   // +---------+
+
+  public boolean notDone() {
+    return (this.count < 49);
+  }
 
   /**
    * Generate all possible tiles. Allows for players to pull from this group to use a piece. 
