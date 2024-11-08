@@ -2,9 +2,6 @@ package edu.grinnell.csc207.util;
 
 import java.util.Arrays;
 import java.util.Random;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /**
  * An object that represents a game of Sayu.
@@ -13,7 +10,7 @@ import java.awt.image.BufferedImage;
  * @author Cade Johnston
  * @author Nicole Gorrell
  */
-public class Board extends JPanel {
+public class Board {
   // +--------+-------------------------------------------------------
   // | Fields |
   // +--------+
@@ -226,9 +223,6 @@ public class Board extends JPanel {
    *   May represent other things based on context.
    */
   public boolean attemptSelection(int type, int button) {
-    this.revalidate();
-    this.repaint();
-    this.update(canvas.getGraphics());
     if (type == 0) {
       // Action: Rotate
       // Button represents if the rotation is clockwise or counter.
@@ -294,41 +288,4 @@ public class Board extends JPanel {
     } // if / else if
     return false;
   } // attemptSelection(int, int);
-
-  @Override
-   public void paintComponent(Graphics g) {
-    super.paintComponent(g);
-    System.out.println("paintComponent Ran");
-    Graphics2D g2 = (Graphics2D) canvas.getGraphics();
-    Tile current;
-    Polygon octagon = new Polygon(new int[]{8, 17, 25, 25, 17, 8, 0, 0},
-                                  new int[]{0, 0, 8, 17, 25, 25, 17, 8}, 8);
-    Polygon innerOct = new Polygon(new int[]{10, 15, 18, 18, 15, 10, 7, 7},
-    new int[]{7, 7, 10, 15, 18, 18, 15, 10}, 8);
-    g.setColor(Color.BLACK);
-    g.drawPolygon(octagon);
-    g.drawRect(10, 10, 10, 10);
-    g.setColor(P2C);
-    g.fillPolygon(innerOct);
-    // for (int i = 0; i < dim() * dim(); i++) {
-    //   current = this.gameBoard.get(i % 7, i / 7);
-    //   if (current != null) {
-    //     octagon.translate(25 + (i % 7) * 35, 25 + (i / 7) * 35);
-    //     innerOct.translate(25 + (i % 7) * 35, 25 + (i / 7) * 35);
-    //     g.setPaintMode();
-    //     g.setColor(Color.BLACK);
-    //     g.drawPolygon(octagon);
-    //     g.drawRect(10, 10, 10, 10);
-    //     if (current.getOwner()) {
-    //       g.setColor(P2C);
-    //     } else {
-    //       g.setColor(P1C);
-    //     } // if / else
-    //     g.fillPolygon(innerOct);
-    //     octagon.translate(-(25 + (i % 7) * 35), -(25 + (i / 7) * 35));
-    //     innerOct.translate(-(25 + (i % 7) * 35), -(25 + (i / 7) * 35));
-    //   } // if
-    // } // for [i]
-    // g.drawImage(canvas, 0, 0, this);
-   } // paintComponent(Graphics)
 } // class Board
