@@ -212,6 +212,27 @@ public class Board {
   } // dim()
 
   /**
+   * Turns the gameboard into a string.
+   *
+   */
+  public String toString() {
+    String out = "";
+
+    for(int i = 0; i < this.gameBoard.height(); i++) {
+      AsciiBlock[] arr = new AsciiBlock[7];
+
+      for(int k = 0; k < this.gameBoard.width(); k++) {
+        arr[k] = new DrawTile(this.gameBoard.get(i, k));
+      } // for
+      AsciiBlock row = new HComp(VAlignment.CENTER, arr);
+      out += row.toString();
+      out += "\n";
+    } // for
+
+    return out;
+  } // toString()
+
+  /**
    * 
    * @param action
    *   An integer representing which action to take
