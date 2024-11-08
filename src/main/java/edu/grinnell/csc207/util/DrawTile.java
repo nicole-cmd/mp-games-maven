@@ -26,12 +26,12 @@ public class DrawTile implements AsciiBlock {
 	/**
 	 * Red color indicator.
 	 */
-	private static final String RED = "R";
+	private static final String RED = "R ";
 
 	/**
 	 * Blue color indicator.
 	 */
-	private static final String BLUE = "R";
+	private static final String BLUE = "B ";
   
 	// +--------+-----------------------------------------------------
   // | Fields |
@@ -48,6 +48,8 @@ public class DrawTile implements AsciiBlock {
 	/** Arrow at the center of the tile. */
 	int centerArrow;
 
+	AsciiBlock element;
+
 	// +--------------+------------------------------------------------
   // | Constructors |
   // +--------------+
@@ -62,8 +64,44 @@ public class DrawTile implements AsciiBlock {
 		this.outerArrows = t.getOuterDirs();
 		this.centerArrow = t.getDir();
 
-    // new Boxed();
+		AsciiBlock left = new VComp(HAlignment.LEFT, new AsciiBlock[]{colorBlock(), dirBlock(outerArrows[0])});
+    AsciiBlock center = dirBlock(outerArrows[1]);
+		AsciiBlock right = new VComp(HAlignment.LEFT, new AsciiBlock[]{dirBlock(this.centerArrow), dirBlock(outerArrows[2])});
+		
+		this.element = new Boxed(new HComp(VAlignment.BOTTOM,
+		new AsciiBlock[]{left, center, right}));
 	} // DrawTile(Tile)
+
+	private Line colorBlock() {
+    if (this.color) {
+			return new Line(RED);
+		} else {
+			return new Line(BLUE);
+		} // if / else
+	} // colorBlock()
+
+	private Line dirBlock(int value) {
+		switch (value) {
+			case 0:
+			  return new Line("N ");
+			case 1:
+			  return new Line("NE");
+			case 2:
+			  return new Line("E ");
+			case 3:
+			  return new Line("SE");
+			case 4:
+			  return new Line("S ");
+			case 5:
+			  return new Line("SW");
+			case 6:
+			  return new Line("W ");
+			case 7:
+			  return new Line("NW");
+		  default:
+			  return new Line("  ");
+		}
+	}
 
 	// +----------------+-----------------------------------------------------
   // | Helper Methods |
@@ -135,17 +173,7 @@ public class DrawTile implements AsciiBlock {
 	 * 	If the row is invalid.
 	 */
 	public String row(int i) throws Exception {
-    String str = "";
-
-    // edges of tile
-    if (i == 0 || i == IN_H * 2) {
-      new Line("------------"); 
-    } else if (i > 1 && i < IN_H) {
-      
-    }
-
-
-    return str;
+		return element.row(i);
 
 		// if(i == 0 || i == this.height() && this.outerArrows[i] <= this.outerArrows.length) {
 		// 	return showArrow(i);
@@ -168,7 +196,7 @@ public class DrawTile implements AsciiBlock {
    * @return the number of rows/columns
    */
 	public int height() {
-		// return (int) (LENGTH * (2 * Math.tan(ANGLE)));
+		return IN_H + 2;
 	} // height()
 
   /**
@@ -177,7 +205,7 @@ public class DrawTile implements AsciiBlock {
    * @return the number of rows/columns
    */
 	public int width() {
-		// return (int) (LENGTH * (2 * Math.tan(ANGLE)));
+		return IN_L + 2;
 	} // height()
 
 } // class DrawTile
