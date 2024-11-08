@@ -46,12 +46,17 @@ public interface AsciiBlock {
    */
   public String row(int i) throws Exception;
 
-  /**
-   * Determine how many rows/columns are in the block. This remains
-   * consistent for rows and columns because we measure regular
-   * octogons.
+   /**
+   * Determine how many rows are in the block.
    *
-   * @return the number of rows/columns
+   * @return the number of rows
    */
   public int height();
+
+  /**
+   * Determine how many columns are in the block.
+   *
+   * @return the number of columns
+   */
+  public int width();
 } // interface AsciiBlock
