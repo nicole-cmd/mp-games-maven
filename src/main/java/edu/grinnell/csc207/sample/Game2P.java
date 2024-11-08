@@ -114,7 +114,7 @@ public class Game2P {
 
     String[] commands = new String[] {"Rotate", "PLACE", "FLIP", "END_TURN"};
     while(boardGame.notDone()) {
-      pen.println(pen.toString());
+      pen.println(boardGame.toString());
       String command = IOUtils.readCommand(pen, eyes, "Action: ", commands);
       switch (command.toUpperCase()) {
         case "Rotate":
