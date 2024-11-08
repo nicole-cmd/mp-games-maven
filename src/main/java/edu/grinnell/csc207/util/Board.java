@@ -65,6 +65,10 @@ public class Board {
     return (this.count < 49);
   }
 
+  public boolean stage() {
+    return stage;
+  }
+
   /**
    * Generate all possible tiles. Allows for players to pull from this group to use a piece. 
    */
@@ -215,75 +219,62 @@ public class Board {
    * 
    * @param action
    *   An integer representing which action to take
-   * @param button
+   * @param data
    *   An integer representing the source of the attempt.
    *   May represent other things based on context.
    * @return
    *   If the action was successful or not.
    *   May represent other things based on context.
    */
-  public boolean attemptSelection(int type, int button) {
+  public boolean attemptSelection(int type, int data) {
     if (type == 0) {
       // Action: Rotate
       // Button represents if the rotation is clockwise or counter.
-      System.out.println("Rotate Action Detected");
       if (!(this.stage)) {
-        if (button == 0) {
+        if (data == 0) {
           this.rotation += 1;
         } else {
           this.rotation -= 1;
         }
         this.rotation = (this.rotation + 8) % 8;
-        System.out.println("Rotate Action Succeeded");
         return true;
       } else {
-        System.out.println("Rotate Action Failed");
         return false;
       }
     } else if (type == 1) {
-      // Action: Place or Flip
-      if (this.stage) {
-        System.out.println("Flip Action Detected");
-        // Action: Flip
-        int[] canFlip = allCanFlip(this.currentP % 7, this.currentP / 7);
-        for (int i = 0; i < canFlip.length; i++) {
-          if (button == canFlip[i]) {
-            this.gameBoard.get(button % 7, button / 7).flip();
-            this.gameBoard.get(button % 7, button / 7).rotate(rotation);
-            this.currentP = button;
-            System.out.println("Flip Action Suceeded");
-            return true;
-          } // if
-        } // for [i]
-        System.out.println("Flip Action Failed");
-      } else {
+      if (!(this.stage)) {
         // Action: Place
-        System.out.println("Place Action Detected");
         int[] canPlay = allCanPlay();
         System.out.println(canPlay.length);
         for (int i = 0; i < canPlay.length; i++) {
-          if (button == canPlay[i]) {
-            this.gameBoard.set(button % 7, button / 7, this.pieces[count]);
+          if (data == canPlay[i]) {
+            this.gameBoard.set(data % 7, data / 7, this.pieces[count]);
             this.stage = true;
-            System.out.println("Place Action Succeeded");
-            this.currentP = button;
+            this.currentP = data;
             return true;
           } // if
         } // for [i]
-        System.out.println("Place Action Failed");
       } // if / else
       return false;
-    } else if (type == 2) {
-      // Action: End Turn
-      System.out.println("End Turn Action Detected");
+    } else if (type == 2){
       if (this.stage) {
-
-        System.out.println("End Turn Action Succeeded");
-        nextPiece();
+        // Action: Flip
+        int[] canFlip = allCanFlip(this.currentP % 7, this.currentP / 7);
+        for (int i = 0; i < canFlip.length; i++) {
+          if (data == canFlip[i]) {
+            this.gameBoard.get(data % 7, data / 7).flip();
+            this.gameBoard.get(data % 7, data / 7).rotate(rotation);
+            this.currentP = data;
+            return true;
+          } // if
+        } // for [i]
+      } // if
+    } else if (type == 3) {
+      // Action: End Turn
+      if (this.stage) {
         this.stage = false;
         return true;
       } // if
-      System.out.println("End Turn Action Failed");
       return false;
     } // if / else if
     return false;
