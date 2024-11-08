@@ -82,8 +82,29 @@ public class Game2P {
     intro(pen);
     pen.flush();
 
+    Random rand = new Random();
+    int game = rand.nextInt();
 
+    // Process the command line
+    for (int i = 0; i < args.length; i++) {
+      switch (args[i]) {
+        case "-s":
+          try {
+            game = Integer.parseInt(args[++i]);
+          } catch (Exception e) {
+            System.err.printf("Invalid game number: %s\n", args[i]);
+            return;
+          } // try/catch
+          break;
+
+        default:
+          System.err.printf("Invalid command-line flag: %s\n", args[i]);
+          return;
+      } // switch
+    } // for
     // beginning gameplay
+
+    Board boardGame = new Board(new Random(game));
     
    
   } // main(String[])
