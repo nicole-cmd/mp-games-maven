@@ -1,6 +1,8 @@
 package edu.grinnell.csc207.sample;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Random;
 import edu.grinnell.csc207.util.*;
@@ -77,6 +79,7 @@ public class Game2P {
    */
   public static void main(String[] args) throws IOException {
     PrintWriter pen = new PrintWriter(System.out, true);
+    BufferedReader eyes = new BufferedReader(new InputStreamReader(System.in));
 
     // game prologue
     intro(pen);
@@ -105,7 +108,58 @@ public class Game2P {
     // beginning gameplay
 
     Board boardGame = new Board(new Random(game));
-    
-   
+
+    pen.println("Game setup number " + game);
+    pen.println();
+
+    String[] commands = new String[] {"Rotate", "PLACE", "FLIP", "END_TURN"};
+    while(boardGame.notDone()) {
+      pen.println(pen.toString());
+      String command = IOUtils.readCommand(pen, eyes, "Action: ", commands);
+      switch (command.toUpperCase()) {
+        case "Rotate":
+          if (!(boardGame.stage())) {
+            int dir =
+              IOUtils.readInt(pen, eyes, "Direction to rotate (0: Clockwise, 1: Counter): ", 0, 1);
+            if (boardGame.attemptSelection(0, dir)) {
+              
+            } // if
+          }
+          break;
+        case "PLACE":
+          int x =
+              IOUtils.readInt(pen, eyes, "X: ", 0, 6);
+          int y =
+              IOUtils.readInt(pen, eyes, "Y: ", 0, 6);
+
+          if (! (boardGame.attemptSelection(1, x + y * 7))) {
+            pen.println("Invalid Coordinate, canceling action.");
+          } // if
+          break;
+        case "FLIP":
+          int x2 =
+                IOUtils.readInt(pen, eyes, "X: ", 0, 6);
+          int y2 =
+                IOUtils.readInt(pen, eyes, "Y: ", 0, 6);
+          if (! (boardGame.attemptSelection(2, x2 + y2 * 7))) {
+            pen.println("Invalid Coordinate, canceling action.");
+          } // if
+          break;
+        case "END_TURN":
+          if (boardGame.attemptSelection(3, 0)) {
+            boardGame.nextPiece();
+          } // if
+          break;
+        default:
+          pen.printf("Unexpected command: '%s'. Please try again.\n", command);
+          break;
+      } // switch
+    } // while
+    pen.printf("The winner of the game is: ");
+    if(boardGame.getWinner()) {
+      pen.print("Player 1");
+    } else {
+      pen.print("Player 2");
+    }
   } // main(String[])
 } // class Game2P
