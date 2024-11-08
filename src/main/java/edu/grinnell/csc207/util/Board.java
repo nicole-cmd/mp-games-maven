@@ -156,7 +156,7 @@ public class Board {
   public int[] allCanFlip(int x, int y) {
     int[] output = new int[0];
     for (int i = 0; i < this.pieces.length; i++) {
-      if(this.gameBoard.get(x,y).canFlip(this.gameBoard.get(i % dim(),i / dim()), x, y, i % dim(), i / dim())) {
+      if(this.gameBoard.get(x, y).canFlip(this.gameBoard.get(i % dim(),i / dim()), x, y, i % dim(), i / dim())) {
         output = Arrays.copyOf(output, output.length + 1);
         output[output.length - 1] = i;
       }
@@ -193,6 +193,7 @@ public class Board {
    */
   public boolean nextPiece() {
     this.count++;
+    this.pieces[count].rotate(rotation);
     return (count > this.pieces.length);
   } // nextPiece()
 
@@ -226,13 +227,15 @@ public class Board {
       AsciiBlock[] arr = new AsciiBlock[7];
 
       for(int k = 0; k < this.gameBoard.width(); k++) {
-        arr[k] = new DrawTile(this.gameBoard.get(i, k));
+        arr[k] = new DrawTile(this.gameBoard.get(k, i));
       } // for
       AsciiBlock row = new HComp(VAlignment.CENTER, arr);
       out += row.toString();
       out += "\n";
     } // for
-
+    out += "Next Piece Preview:\n";
+    this.pieces[count].rotate(rotation);
+    out += new DrawTile(this.pieces[count]);
     return out;
   } // toString()
 
@@ -290,6 +293,7 @@ public class Board {
           } // if
         } // for [i]
       } // if
+      return false;
     } else if (type == 3) {
       // Action: End Turn
       if (this.stage) {

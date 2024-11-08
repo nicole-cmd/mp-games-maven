@@ -106,4 +106,16 @@ public class HComp implements AsciiBlock {
 
     return sum;
   } // width()
+
+  public String toString() {
+    String output = "";
+    for(int i = 0; i < height(); i++) {
+      try {
+      output += row(i) + "\n";
+      } catch (Exception e) {
+        return "";
+      } // try / catch
+    } // for
+    return output;
+  } // toString()
 } // class HComp

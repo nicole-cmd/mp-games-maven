@@ -60,16 +60,26 @@ public class DrawTile implements AsciiBlock {
 	 * 	The tile we derive information from.
 	 */
 	public DrawTile(Tile t) {
-		this.color = t.getOwner();
-		this.outerArrows = t.getOuterDirs();
-		this.centerArrow = t.getDir();
-
-		AsciiBlock left = new VComp(HAlignment.LEFT, new AsciiBlock[]{colorBlock(), dirBlock(outerArrows[0])});
-    AsciiBlock center = dirBlock(outerArrows[1]);
-		AsciiBlock right = new VComp(HAlignment.LEFT, new AsciiBlock[]{dirBlock(this.centerArrow), dirBlock(outerArrows[2])});
-		
-		this.element = new Boxed(new HComp(VAlignment.BOTTOM,
-		new AsciiBlock[]{left, center, right}));
+		if (t == null) {
+			this.element = new Boxed(new Padded(new Line(" "), ' ', HAlignment.CENTER, VAlignment.BOTTOM, IN_L, IN_H));
+		} else {
+			this.color = t.getOwner();
+			this.outerArrows = t.getOuterDirs();
+			this.centerArrow = t.getDir();
+			if (this.outerArrows.length == 0) {
+				AsciiBlock left = new VComp(HAlignment.LEFT, new AsciiBlock[]{colorBlock(), new Line("  ")});
+				AsciiBlock center = new Line("  ");
+				AsciiBlock right = new VComp(HAlignment.LEFT, new AsciiBlock[]{new Line("  "),new Line("  ")});
+				this.element = new Boxed(new HComp(VAlignment.BOTTOM,
+				new AsciiBlock[]{left, center, right}));
+			} else {
+				AsciiBlock left = new VComp(HAlignment.LEFT, new AsciiBlock[]{colorBlock(), dirBlock(outerArrows[0])});
+				AsciiBlock center = dirBlock(outerArrows[1]);
+				AsciiBlock right = new VComp(HAlignment.LEFT, new AsciiBlock[]{dirBlock(this.centerArrow), dirBlock(outerArrows[2])});
+				this.element = new Boxed(new HComp(VAlignment.BOTTOM,
+				new AsciiBlock[]{left, center, right}));
+			}
+		}
 	} // DrawTile(Tile)
 
 	private Line colorBlock() {
@@ -208,4 +218,15 @@ public class DrawTile implements AsciiBlock {
 		return IN_L + 2;
 	} // height()
 
+	public String toString() {
+    String output = "";
+    for(int i = 0; i < height(); i++) {
+      try {
+      output += row(i) + "\n";
+      } catch (Exception e) {
+        return "";
+      } // try / catch
+    } // for
+    return output;
+  } // toString()
 } // class DrawTile
