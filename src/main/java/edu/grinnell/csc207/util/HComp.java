@@ -107,11 +107,17 @@ public class HComp implements AsciiBlock {
     return sum;
   } // width()
 
+  /**
+   * Returns a string representation of this object.
+   *
+   * @return
+   *   A string representation of this object.
+   */
   public String toString() {
     String output = "";
-    for(int i = 0; i < height(); i++) {
+    for (int i = 0; i < height(); i++) {
       try {
-      output += row(i) + "\n";
+        output += row(i) + "\n";
       } catch (Exception e) {
         return "";
       } // try / catch

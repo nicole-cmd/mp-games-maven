@@ -24,7 +24,7 @@ public class Board {
   /** The board we play (place pieces) on. */
   private MatrixV0<Tile> gameBoard;
 
-  /** The rotation of the next tile */
+  /** The rotation of the next tile. */
   private int rotation;
 
   /** What stage the game is in. False: Play, True: Flip */
@@ -42,7 +42,7 @@ public class Board {
 
   /**
    * Construct the game board.
-   * 
+   *
    * @param rand
    *   A Random object with some seed to use for randomization.
    */
@@ -61,16 +61,31 @@ public class Board {
   // | Methods |
   // +---------+
 
+  /**
+   * Return if the game is unfinished.
+   *
+   * @return
+   *   If the game is unfinished.
+   */
   public boolean notDone() {
     return (this.count < 49);
-  }
-
-  public boolean stage() {
-    return stage;
-  }
+  } // notDone()
 
   /**
-   * Generate all possible tiles. Allows for players to pull from this group to use a piece. 
+   * Return the stage the game is in.
+   *
+   * @return
+   *   The stage the game is in.
+   */
+  public boolean stage() {
+    return stage;
+  } // stage()
+
+  /**
+   * Generate all possible tiles. Allows for players to pull from this group to use a piece.
+   *
+   * @param seed
+   *   The random object that determines which game is to be played.
    */
   private void tileGroup(Random seed) {
     int tile = 1; // keep track of the tile we are on
@@ -90,7 +105,7 @@ public class Board {
       temp = this.pieces[shuffleIndex + l];
       this.pieces[shuffleIndex + l] = this.pieces[l];
       this.pieces[l] = temp;
-      if((l % 2) == 0) {
+      if ((l % 2) == 0) {
         this.pieces[l].flip();
       } // if
     } // for [l]
@@ -98,6 +113,9 @@ public class Board {
 
   /**
    * Show the users the next piece.
+   *
+   * @return
+   *   The next tile.
    */
   public Tile preview() {
     return this.pieces[this.count++];
@@ -118,7 +136,7 @@ public class Board {
   } // set
 
   /**
-   * Flip the tile at (x,y) and set its rotation to r
+   * Flip the tile at (x,y) and set its rotation to r.
    * @param x
    *   The x coordinate of the tile to set.
    * @param y
@@ -127,8 +145,8 @@ public class Board {
    *   The rotation to set the tile to.
    */
   public void flip(int x, int y, int r) {
-    this.gameBoard.get(x,y).rotate(r);
-    this.gameBoard.get(x,y).flip();
+    this.gameBoard.get(x, y).rotate(r);
+    this.gameBoard.get(x, y).flip();
   } // flip
 
   /**
@@ -156,10 +174,11 @@ public class Board {
   public int[] allCanFlip(int x, int y) {
     int[] output = new int[0];
     for (int i = 0; i < this.pieces.length; i++) {
-      if(this.gameBoard.get(x, y).canFlip(this.gameBoard.get(i % dim(),i / dim()), x, y, i % dim(), i / dim())) {
+      if (this.gameBoard.get(x, y).canFlip(this.gameBoard.get(i % dim(), i / dim()),
+                                                              x, y, i % dim(), i / dim())) {
         output = Arrays.copyOf(output, output.length + 1);
         output[output.length - 1] = i;
-      }
+      } // if
     } // for [i]
     return output;
   } // allCanFlip(int, int)
@@ -170,13 +189,13 @@ public class Board {
    *   All of the locations that a tile can be placed at.
    */
   public int[] allCanPlay() {
-    int[] deltas = new int[]{-7,-1,1,7};
+    int[] deltas = new int[]{-7, -1, 1, 7};
     int[] output = new int[0];
     for (int i = 0; i < this.pieces.length; i++) {
       if (this.gameBoard.get(i % 7, i / 7) == null) {
         for (int j = 0; j < deltas.length; j++) {
-          // System.out.println(i +", " + j + ": " + this.gameBoard.get((i + deltas[j]) % dim(), (i + deltas[j]) / dim()) == null);
-          if((i + deltas[j] >= 0) && (i + deltas[j] < this.pieces.length) && (this.gameBoard.get((i + deltas[j]) % dim(), (i + deltas[j]) / dim()) != null)) {
+          if ((i + deltas[j] >= 0) && (i + deltas[j] < this.pieces.length)
+              && (this.gameBoard.get((i + deltas[j]) % dim(), (i + deltas[j]) / dim()) != null)) {
             output = Arrays.copyOf(output, output.length + 1);
             output[output.length - 1] = i;
           } // if
@@ -193,9 +212,9 @@ public class Board {
    */
   public boolean nextPiece() {
     this.count++;
-    if (count > this.pieces.length) {
+    if (count >= this.pieces.length) {
       return true;
-    }
+    } // if
     this.pieces[count].rotate(rotation);
     return false;
   } // nextPiece()
@@ -208,7 +227,7 @@ public class Board {
   public boolean getWinner() {
     int points = 0;
     for (int i = 0; i < this.pieces.length; i++) {
-      if (this.gameBoard.get(i % dim(),i / dim()).getOwner()) {
+      if (this.gameBoard.get(i % dim(), i / dim()).getOwner()) {
         points++;
       } // if
     } // for [i]
@@ -222,32 +241,34 @@ public class Board {
   /**
    * Turns the gameboard into a string.
    *
+   * @return A string representing this Board object.
    */
   public String toString() {
     String out = "";
-    for(int i = 0; i < this.gameBoard.height(); i++) {
+    for (int i = 0; i < this.gameBoard.height(); i++) {
       AsciiBlock[] arr = new AsciiBlock[7];
 
-      for(int k = 0; k < this.gameBoard.width(); k++) {
+      for (int k = 0; k < this.gameBoard.width(); k++) {
         arr[k] = new DrawTile(this.gameBoard.get(k, i));
       } // for
       AsciiBlock row = new HComp(VAlignment.CENTER, arr);
       out += row.toString();
     } // for
-    if(!(stage())) {
+    if (!(stage())) {
       out += "Next Piece Preview:\n";
       this.pieces[count].rotate(rotation);
       out += new DrawTile(this.pieces[count]);
     } else {
       out += "Current Piece:\n";
       out += new DrawTile(this.gameBoard.get(currentP % 7, currentP / 7));
-    }
+    } // if / else
     return out;
   } // toString()
 
   /**
-   * 
-   * @param action
+   * Attempts to run a specified action.
+   *
+   * @param type
    *   An integer representing which action to take
    * @param data
    *   An integer representing the source of the attempt.
@@ -265,17 +286,16 @@ public class Board {
           this.rotation += 1;
         } else {
           this.rotation -= 1;
-        }
+        } // if / else
         this.rotation = (this.rotation + 8) % 8;
         return true;
       } else {
         return false;
-      }
+      } // if / else
     } else if (type == 1) {
       if (!(this.stage)) {
         // Action: Place
         int[] canPlay = allCanPlay();
-        System.out.println(canPlay.length);
         for (int i = 0; i < canPlay.length; i++) {
           if (data == canPlay[i]) {
             this.gameBoard.set(data % 7, data / 7, this.pieces[count]);
@@ -286,14 +306,10 @@ public class Board {
         } // for [i]
       } // if / else
       return false;
-    } else if (type == 2){
+    } else if (type == 2) {
       if (this.stage) {
         // Action: Flip
         int[] canFlip = allCanFlip(this.currentP % 7, this.currentP / 7);
-        for (int i = 0; i < canFlip.length; i++) {
-          System.out.print(canFlip[i]);
-        }
-        System.out.print("\n");
         for (int i = 0; i < canFlip.length; i++) {
           if (data == canFlip[i]) {
             this.gameBoard.get(data % 7, data / 7).flip();

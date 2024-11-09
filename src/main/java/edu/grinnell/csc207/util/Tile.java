@@ -33,7 +33,7 @@ public class Tile {
 
   /**
    * Create a Tile object.
-   * 
+   *
    * @param base
    *  The direction of the white arrow of the tile.
    * @param outer
@@ -43,7 +43,7 @@ public class Tile {
     this.baseDir = base;
     this.outerDir = outer;
     this.owner = false;
-   } // Tile(int,int[])
+  } // Tile(int, int[])
 
   // +---------+-----------------------------------------------------
   // | Methods |
@@ -51,7 +51,7 @@ public class Tile {
 
   /**
    * Determines if we can flip the tile adjacent to that we placed.
-   * 
+   *
    * @param other
    *  The tile we want to flip.
    * @param thisX
@@ -65,9 +65,9 @@ public class Tile {
    * @return a boolean to determine whether we can flip the desired tile.
    */
   public boolean canFlip(Tile other, int thisX, int thisY, int otherX, int otherY) {
-    if (other == null){
-      return false;  
-    }else if (this.owner == other.getOwner()) {
+    if (other == null) {
+      return false;
+    } else if (this.owner == other.getOwner()) {
       return false;
     } else if (this.baseDir == -1) {
       return false;
@@ -75,7 +75,7 @@ public class Tile {
       return false;
     } // if / else if / else if
     for (int k = 0; k < 8; k++) {
-      if((otherX - thisX == DELTASX[k]) && (thisY - otherY == DELTASY[k])) {
+      if ((otherX - thisX == DELTASX[k]) && (thisY - otherY == DELTASY[k])) {
         for (int i = 0; i < this.getOuterDirs().length; i++) {
           if (this.getOuterDirs()[i] == k) {
             for (int j = 0; j < other.getOuterDirs().length; j++) {
@@ -94,7 +94,7 @@ public class Tile {
 
   /**
    * Rotate this Sayu tile.
-   * 
+   *
    * @param amount
    *  The direction to set the white arrow of this tile to.
    */
@@ -103,13 +103,13 @@ public class Tile {
       for (int i = 0; i < this.outerDir.length; i++) {
         this.outerDir[i] = (this.outerDir[i] + amount - this.baseDir + 8) % 8;
       } // for [i]
-      this.baseDir = amount ;
+      this.baseDir = amount;
     } // if
   } // rotate(int)
 
   /**
    * Return the owner of this Sayu tile.
-   * 
+   *
    * @return the owner of this Sayu tile
    */
   public boolean getOwner() {
@@ -125,7 +125,7 @@ public class Tile {
 
   /**
    * Gets an array representing the white arrow of this Sayu tile.
-   * 
+   *
    * @return
    *  An int representing the white arrow of this Sayu tile.
    */
