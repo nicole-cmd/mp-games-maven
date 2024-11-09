@@ -60,7 +60,7 @@ public class Tile {
       return false;
     } // if / else if / else if
     for (int k = 0; k < 8; k++) {
-      if((thisX - otherX == DELTASX[k]) && (thisY - otherY == DELTASY[k])) {
+      if((otherX - thisX == DELTASX[k]) && (thisY - otherY == DELTASY[k])) {
         for (int i = 0; i < this.getOuterDirs().length; i++) {
           if (this.getOuterDirs()[i] == k) {
             for (int j = 0; j < other.getOuterDirs().length; j++) {

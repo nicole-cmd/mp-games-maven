@@ -193,8 +193,11 @@ public class Board {
    */
   public boolean nextPiece() {
     this.count++;
+    if (count > this.pieces.length) {
+      return true;
+    }
     this.pieces[count].rotate(rotation);
-    return (count > this.pieces.length);
+    return false;
   } // nextPiece()
 
   /**
@@ -222,7 +225,6 @@ public class Board {
    */
   public String toString() {
     String out = "";
-
     for(int i = 0; i < this.gameBoard.height(); i++) {
       AsciiBlock[] arr = new AsciiBlock[7];
 
@@ -231,11 +233,15 @@ public class Board {
       } // for
       AsciiBlock row = new HComp(VAlignment.CENTER, arr);
       out += row.toString();
-      out += "\n";
     } // for
-    out += "Next Piece Preview:\n";
-    this.pieces[count].rotate(rotation);
-    out += new DrawTile(this.pieces[count]);
+    if(!(stage())) {
+      out += "Next Piece Preview:\n";
+      this.pieces[count].rotate(rotation);
+      out += new DrawTile(this.pieces[count]);
+    } else {
+      out += "Current Piece:\n";
+      out += new DrawTile(this.gameBoard.get(currentP % 7, currentP / 7));
+    }
     return out;
   } // toString()
 
@@ -284,6 +290,10 @@ public class Board {
       if (this.stage) {
         // Action: Flip
         int[] canFlip = allCanFlip(this.currentP % 7, this.currentP / 7);
+        for (int i = 0; i < canFlip.length; i++) {
+          System.out.print(canFlip[i]);
+        }
+        System.out.print("\n");
         for (int i = 0; i < canFlip.length; i++) {
           if (data == canFlip[i]) {
             this.gameBoard.get(data % 7, data / 7).flip();

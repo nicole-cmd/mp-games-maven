@@ -112,7 +112,7 @@ public class Game2P {
     pen.println("Game setup number " + game);
     pen.println();
 
-    String[] commands = new String[] {"ROTATE", "PLACE", "FLIP", "END_TURN"};
+    String[] commands = new String[] {"ROTATE", "PLACE", "FLIP", "END TURN"};
     while(boardGame.notDone()) {
       pen.println(boardGame.toString());
       String command = IOUtils.readCommand(pen, eyes, "Action: ", commands);
@@ -120,35 +120,47 @@ public class Game2P {
         case "ROTATE":
           if (!(boardGame.stage())) {
             int dir =
-              IOUtils.readInt(pen, eyes, "Direction to rotate (0: Clockwise, 1: Counter): ", 0, 1);
+              IOUtils.readInt(pen, eyes, "Direction to rotate (0: Clockwise, 1: Counter): ", 0, 2);
             if (boardGame.attemptSelection(0, dir)) {
               
             } // if
-          }
+          } else {
+            pen.println("Not the time for this command. Either flip a piece or end the turn.");
+          }// if
           break;
         case "PLACE":
-          int x =
-              IOUtils.readInt(pen, eyes, "X: ", 0, 6);
-          int y =
-              IOUtils.readInt(pen, eyes, "Y: ", 0, 6);
+          if (!(boardGame.stage())) {
+            int x =
+                IOUtils.readInt(pen, eyes, "X: ", 0, 7);
+            int y =
+                IOUtils.readInt(pen, eyes, "Y: ", 0, 7);
 
-          if (! (boardGame.attemptSelection(1, x + y * 7))) {
-            pen.println("Invalid Coordinate, canceling action.");
-          } // if
+            if (! (boardGame.attemptSelection(1, x + y * 7))) {
+              pen.println("Invalid Coordinate, canceling action.");
+            } // if
+          } else {
+            pen.println("Not the time for this command. Either flip a piece or end the turn.");
+          }
           break;
         case "FLIP":
+          if (boardGame.stage()) {
           int x2 =
-                IOUtils.readInt(pen, eyes, "X: ", 0, 6);
+                IOUtils.readInt(pen, eyes, "X: ", 0, 7);
           int y2 =
-                IOUtils.readInt(pen, eyes, "Y: ", 0, 6);
+                IOUtils.readInt(pen, eyes, "Y: ", 0, 7);
           if (! (boardGame.attemptSelection(2, x2 + y2 * 7))) {
             pen.println("Invalid Coordinate, canceling action.");
           } // if
+          } else {
+            pen.println("Not the time for this command. Either rotate the next piece or place it.");
+          }
           break;
-        case "END_TURN":
+        case "END TURN":
           if (boardGame.attemptSelection(3, 0)) {
             boardGame.nextPiece();
-          } // if
+          } else {
+            pen.println("Not the time for this command. Either rotate the next piece or place it.");
+          } // if / else
           break;
         default:
           pen.printf("Unexpected command: '%s'. Please try again.\n", command);
