@@ -1,11 +1,10 @@
-package edu.grinnell.csc207.sample;
+package edu.grinnell.csc207.sayu;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Random;
-import edu.grinnell.csc207.util.Board;
 import edu.grinnell.csc207.util.IOUtils;
 
 /**

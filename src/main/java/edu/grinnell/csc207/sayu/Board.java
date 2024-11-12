@@ -1,7 +1,11 @@
-package edu.grinnell.csc207.util;
+package edu.grinnell.csc207.sayu;
 
 import java.util.Arrays;
 import java.util.Random;
+import edu.grinnell.csc207.util.MatrixV0;
+import edu.grinnell.csc207.util.HComp;
+import edu.grinnell.csc207.util.VAlignment;
+import edu.grinnell.csc207.util.AsciiBlock;
 
 /**
  * An object that represents a game of Sayu.
