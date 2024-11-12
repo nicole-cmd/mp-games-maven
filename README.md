@@ -8,6 +8,11 @@ Authors:
 * Nicole Gorrell
 * Samuel A. Rebelsky (Starter code)
 
+Coauthors of works utilized:
+
+* Harrison Zhu (Author/Coauthor of AsciiBlock interface and implementing classes in util)
+* Tiffany Tang (Author/Coauthor of AsciiBlock interface and implementing classes in util)
+
 Instructions:
 
 Sayu - Adapted from a game created by Khanat Sadomwattana
